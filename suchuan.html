@@ -4,30 +4,23 @@
 <head>
     <meta charset="utf-8" />
     <meta name="description" content="The HTML5 gmae's main page" />
-    <link rel="stylesheet" type="text/css" href="/styles/main.css">
+    <meta name="viewport" content="width=device-width, user-scalable=no"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./scripts/lodash.js"></script>
+    <link rel="stylesheet" type="text/css" href="/styles/suchuan.css">    
     <title>풀무원 게임 천국</title>
 </head>
 
-<body>
-    <header id="header">
-        <div class="logo">
-            <a href="index.html"> <img src="images/suchuan.jpg" alt="Logo Text" ></a>
-        </div>
-        <nav class="topnav" id="myTopnav">
-            <ul>
-                <li><a href="./attendance.html">출석체크</a></li>
-                <li><a href="./suchuan.html">사천성</a></li>
-                <li><a href="./tarot.html">운세</a></li>
-            </ul>
-        </nav>
-    </header>
+<body id="body">
+    <header id="header"></header>
     <main id="main" role="main">
-        <div id="content">
+        <div id="content" onload="draw();" background-image="./images/logo.jpg">
             <!-- write here -->
+            <canvas id="canvas" width=360px height=640px></canvas>
         </div>
     </main>
     <footer id="footer"> </footer>
-    <script src="/scripts/main.js"></script>
+    <script src="./scripts/suchuan.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,10 @@
+body {
+    text-align: center;
+    margin: auto;
+    padding: 0;
+}
+
+main div canvas {
+    /* background-image:  url("/images/logo.jpg") */
+    background-color: gray;
+}
