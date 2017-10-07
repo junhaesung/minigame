@@ -102,7 +102,7 @@ $(() => {
           // 게임이 끝났다고 처리하기
           // confirm('축하합니다!!');
           alert('clear!');
-          if (level <= 3) {
+          if (level < 3) {
             return startGame();
           }
           return;
