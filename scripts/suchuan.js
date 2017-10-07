@@ -47,7 +47,7 @@ $(() => {
     const x = Math.floor((event.clientX - offsetX) / w);
     const y = Math.floor((event.clientY - offsetY) / h);
 
-    if (x > ROW || y > COL) {
+    if (x >= ROW || y >= COL) {
       return; 
     }
     if (m[x][y] == 0) {
