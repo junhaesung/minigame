@@ -1,21 +1,18 @@
-dx = [0, -1, 0, 1];
-dy = [-1, 0, 1, 0];
-const n = 0;
-const ROW = 7;
-const COL = 5;
-let path_list = [];
-const w = 50;
-const h = 70;
-const m = [];
+// 방향 나타내는 배열
+const dx = [0, -1, 0, 1];
+const dy = [-1, 0, 1, 0];
+const n = 0;  // 이거어디서쓰지
+const numberOfCards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+let ROW = 7;
+let COL = 5;
+let path_list = []; // 게임판 탐색하며 성공한 경로 적어두는 배열
+let w = 60;   // 카드 1장 너비
+let h = 80;   // 카드 1장 높이
+let m = []; // 지도 나타내는 배열
 let state = 0;  // 0 : first, 1 : second 
 let start = [];
-m.push([0, 0, 0, 0, 0]);
-m.push([0, 3, 1, 2, 0]);
-m.push([0, 2, 2, 2, 0]);
-m.push([0, 3, 0, 3, 0]);
-m.push([0, 1, 2, 1, 0]);
-m.push([0, 3, 2, 1, 0]);
-m.push([0, 0, 0, 0, 0]);
+let level = 0;  // 현재 게임의 레벨
+let score = 0;  // 게임의 점수
 
 $(() => {
   const canvas = document.getElementById('canvas');
@@ -55,14 +52,8 @@ $(() => {
     }
 
     // 하이라이트
-    ctx.beginPath();
-    ctx.moveTo(x*w, y*h);
-    ctx.lineTo(w*(x+1), h*y);
-    ctx.lineTo(w*(x+1), h*(y+1));
-    ctx.lineTo(w*x, h*(y+1));
-    ctx.lineTo(w*x, h*y);
-    ctx.stroke();
-
+    drawEdge(x, y); 
+    
     if (state == 0) {
       start.push(x);
       start.push(y);
@@ -102,26 +93,94 @@ $(() => {
       // 경로 지우기
       setTimeout(() => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawAllCards();
-      }, 100);
+        start = [];
+        state = 0;
 
-      start = [];
-      state = 0;
-    }
-    console.log(state);
-  });
-  
-  // 
-  function init () {
-    for (let i=0; i<ROW; i++) {
-      for (let j=0; j<COL; j++) {
-        if (m[i][j] == 0) {
-          continue;
+        console.log(state);
+        // 게임이 끝났는지 검사
+        if (isGameEnd()) {
+          // 게임이 끝났다고 처리하기
+          // confirm('축하합니다!!');
+          alert('clear!');
+          if (level <= 3) {
+            return startGame();
+          }
+          return;
         }
-        const imageName = 'card_0' + m[i][j].toString();
-        drawCard(imageName, w*i, h*j, w, h);
-      }
+        // 경로 검사
+        countPairs();
+
+        drawAllCards();
+      }, 100);      
     }
+  });
+
+  // 게임 시작하기
+  function startGame () {
+    // 현재 레벨값을 참조하여 다음 레벨 게임을 시작한다. 
+    level += 1;
+
+    // 파일로부터 다음 레벨 정보 읽어오기, 변수 값 세팅
+    $.get(`./data/level_0${level}.txt`, (data) => {
+      m = []
+      const lines = data.split('\n');
+      let numberOfPairs = 0;
+      _.forEach(lines, (line, k) => {
+        if (k == 0) {
+          const tmp = line.split(' ');
+          ROW = parseInt(tmp[0]);
+          COL = parseInt(tmp[1]);
+          numberOfPairs = parseInt(tmp[2]);
+          console.log(ROW, COL, numberOfPairs);
+        } else {
+          m.push(_.map(line.split(' '), (x) => parseInt(x)));
+        }
+      });
+
+      // 카드가 들어갈 수 있는 자리의 쌍을 구함
+      let points = [];
+      for (let i=0; i<ROW; i++) {
+        for (let j=0; j<COL; j++) {
+          if (m[i][j] == 0) continue;
+          const tmp = [];
+          tmp.push(i);
+          tmp.push(j);
+          points.push(tmp);
+        }
+      }
+      points = _.shuffle(points);
+
+      // 현재 사용할 카드 종류를 선택함
+      const selected = _.sampleSize(numberOfCards, numberOfPairs);
+      _.forEach(selected, (k) => {
+        // 맵에 쓰기
+        let p = points.pop();
+        m[p[0]][p[1]] = k;
+        p = points.pop();
+        m[p[0]][p[1]] = k;
+      });
+
+      console.log(m);
+      init();
+    });
+  }
+  
+  // 초기화
+  function init () {
+    $('#canvas').attr('width', '360px');
+    $('#canvas').attr('height', '640px');
+    drawAllCards();
+  }
+
+  // 테두리 그리기
+  function drawEdge (x, y) {
+    ctx.beginPath();
+    ctx.moveTo(x*w, y*h);
+    ctx.lineTo(w*(x+1), h*y);
+    ctx.lineTo(w*(x+1), h*(y+1));
+    ctx.lineTo(w*x, h*(y+1));
+    ctx.lineTo(w*x, h*y);
+    ctx.stroke();
   }
 
   // 카드 그리기
@@ -134,20 +193,26 @@ $(() => {
     };
   }
 
-  // 모든 카드 다시 그리기
+  // 모든 카드 그리기
   function drawAllCards () {
     console.log('drawAllCards');
     for (let i=0; i<ROW; i++) {
       for (let j=0; j<COL; j++) {
         if (m[i][j] == 0) continue;
-        const imageName = `card_0${m[i][j]}`;
+        let imageName = '';
+        const c = m[i][j];
+        if (c < 10) {
+          imageName = 'card_0' + m[i][j].toString();
+        } else {
+          imageName += 'card_' + m[i][j].toString();
+        }
         console.log(imageName);
         drawCard(imageName, i*w, j*h, w, h);
       }
     }
   }
   
-  // 주어진 경로 배열을 그리기
+  // 주어진 경로 배열을 선으로 잇기
   function drawPath (path) {
     console.log('drawPath');
     console.log(path.length);
@@ -164,12 +229,38 @@ $(() => {
       ctx.stroke();
     });
   }
+
+  // 게임이 끝났는지 검사
+  // 끝났으면 true , 아니면 false
+  function isGameEnd () {
+    let count = 0;
+    for (let row of m ) {
+      for (let e of row) {
+        count += e;
+      }
+    }
+    return count == 0;
+  }
   
+  function countPairs () {
+    let count = 0;
+    for (let i=0; i<ROW; i++) {
+      for (let j=0; j<COL; j++) {
+        if (m[i][j] == 0) continue;
+        if (findPair(i, j)) count += 1;
+      }
+    }
+    if (count == 0) {
+      console.log('짝이 맞는 카드가 없습니다 ㅠ_ㅠ');
+    }
+    return count;
+  }
+
   // 특정 카드의 짝이 있는지 검사
   function findPair (r, c) {
     path_list = [];
     const tmp = [];
-    tmp.push(r)
+    tmp.push(r);
     tmp.push(c);
     const path = [];
     path.push(tmp);
@@ -177,15 +268,10 @@ $(() => {
     for (let k=0; k<4; k++) {
       const x = r + dx[k];
       const y = c + dy[k];
-      go(x, y, k, 0, tmp, m[r][c]);
+      go(x, y, k, 0, path, m[r][c]);
     }
-    let shortest_path = [];
-    for (let p of path_list) {
-      if (shortest_path.length == 0 || shortest_path.length > p.length) {
-        shortest_path = p;
-      }
-    }
-    return shortest_path;
+    console.log(path_list);
+    return path_list.length > 0;
   }
 
   function findRoute (r, c, a, b) {
@@ -237,7 +323,7 @@ $(() => {
     tmp.push(i);
     tmp.push(j);
     pathCloned.push(tmp)
-    path_list.push(pathCloned);
+    // path_list.push(pathCloned);
 
     // 현재 칸 검사
     // 정답이면 정답처리
@@ -265,5 +351,6 @@ $(() => {
   }
 
   // initialize
-  init();
+  // init();
+  startGame();
 });
