@@ -4,7 +4,49 @@ body {
     padding: 0;
 }
 
-main div canvas {
-    /* background-image:  url("/images/logo.jpg") */
-    background-color: gray;
+#header {
+    width: 360px;
+    height: 110px;
+    margin: auto;
+    text-align: center;
+    background-color: burlywood;
 }
+
+#canvas {
+    /* background-image:  url("/images/logo.jpg") */
+    width: 288px;
+    height: 384px;
+    margin: auto;
+    text-align: center;
+    background-color: #282527;
+}
+
+#main {
+    width: 360px;
+    padding-top: 13px;
+    margin: auto;
+    text-align: center;
+    background-image:  url("../images/suchuan_background.png");
+    background-size: 100% 100%;
+}
+
+#scoreboard {
+    width: 360px;
+    height: 64px;
+    padding-right: 32px;
+    padding-left: 32px;
+    display: inline-flex;
+}
+
+#pause {
+    width: 16%;
+}
+
+#score {
+    width: 50%;
+}
+
+#back {
+    width: 16%;
+}
+

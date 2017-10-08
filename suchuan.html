@@ -13,13 +13,18 @@
 
 <body id="body">
     <header id="header"></header>
-    <main id="main" role="main">
-        <div id="content" onload="draw();" background-image="./images/logo.jpg">
+    <div id="main">
+        <div id="content">
             <!-- write here -->
-            <canvas id="canvas" width=360px height=640px></canvas>
+            <canvas id="canvas"></canvas>
         </div>
-    </main>
-    <footer id="footer"> </footer>
+        <div id="scoreboard">
+            <button id="pause">pause</button>
+            <div id="score">score</div>
+            <button id="back">back</button>
+        </div>
+    </div>
+    <footer id="footer"></footer>
     <script src="./scripts/suchuan.js"></script>
 </body>
 

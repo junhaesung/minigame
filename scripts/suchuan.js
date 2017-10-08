@@ -6,9 +6,10 @@ const numberOfCards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 let ROW = 7;
 let COL = 5;
 let path_list = []; // 게임판 탐색하며 성공한 경로 적어두는 배열
-let w = 60;   // 카드 1장 너비
-let h = 80;   // 카드 1장 높이
+let w = 48;   // 카드 1장 너비
+let h = 64;   // 카드 1장 높이
 let m = []; // 지도 나타내는 배열
+let used = [];
 let state = 0;  // 0 : first, 1 : second 
 let start = [];
 let level = 0;  // 현재 게임의 레벨
@@ -40,7 +41,6 @@ $(() => {
    * Canvas Click Event
    */
   canvas.addEventListener('click', (event) => {
-    console.log('clicked');
     const x = Math.floor((event.clientX - offsetX) / w);
     const y = Math.floor((event.clientY - offsetY) / h);
 
@@ -52,7 +52,9 @@ $(() => {
     }
 
     // 하이라이트
-    drawEdge(x, y); 
+    drawEdge(x, y);
+    const tmp = [x, y];
+    used.push(tmp);
     
     if (state == 0) {
       start.push(x);
@@ -60,7 +62,6 @@ $(() => {
       state = 1;
     } else {
       const result = findRoute(start[0], start[1], x, y);
-      console.log(result);
 
       let isSuccess = false;
       if (start[0] == x && start[1] == y) {
@@ -83,20 +84,21 @@ $(() => {
       if (isSuccess) {
         // 경로 그리기
         drawPath(result);
+        used.push(result);
         // 카드 지우기 (시작, 끝)
         const front = result[0];
         const back = result[result.length - 1];
         m[front[0]][front[1]] = 0;
         m[back[0]][back[1]] = 0;
-      } 
+      }
 
       // 경로 지우기
       setTimeout(() => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // ctx.clearRect(0, 0, canvas.width, canvas.height);
+        eraseRect();
         start = [];
         state = 0;
 
-        console.log(state);
         // 게임이 끝났는지 검사
         if (isGameEnd()) {
           // 게임이 끝났다고 처리하기
@@ -111,7 +113,7 @@ $(() => {
         countPairs();
 
         drawAllCards();
-      }, 100);      
+      }, 100);
     }
   });
 
@@ -167,8 +169,8 @@ $(() => {
   
   // 초기화
   function init () {
-    $('#canvas').attr('width', '360px');
-    $('#canvas').attr('height', '640px');
+    $('#canvas').attr('width', '288px');
+    $('#canvas').attr('height', '384px');
     drawAllCards();
   }
 
@@ -183,6 +185,15 @@ $(() => {
     ctx.stroke();
   }
 
+  function eraseRect () {
+    _.forEach(used, points => {
+      _.forEach(points, p => {
+        ctx.clearRect(p[0] * w - 4, p[1] * h - 4, (p[0] + 1) * w + 4, (p[1] + 1) * h + 4);
+      });
+    });
+    used = [];
+  }
+
   // 카드 그리기
   function drawCard(imageName, x, y, width, height) {
     const ctx = canvas.getContext('2d');
@@ -195,7 +206,6 @@ $(() => {
 
   // 모든 카드 그리기
   function drawAllCards () {
-    console.log('drawAllCards');
     for (let i=0; i<ROW; i++) {
       for (let j=0; j<COL; j++) {
         if (m[i][j] == 0) continue;
@@ -206,7 +216,6 @@ $(() => {
         } else {
           imageName += 'card_' + m[i][j].toString();
         }
-        console.log(imageName);
         drawCard(imageName, i*w, j*h, w, h);
       }
     }
@@ -214,8 +223,6 @@ $(() => {
   
   // 주어진 경로 배열을 선으로 잇기
   function drawPath (path) {
-    console.log('drawPath');
-    console.log(path.length);
     // draw path
     ctx.beginPath();
     _.forEach(path, (p, k) => {
@@ -251,7 +258,7 @@ $(() => {
       }
     }
     if (count == 0) {
-      console.log('짝이 맞는 카드가 없습니다 ㅠ_ㅠ');
+      alert('짝이 맞는 카드가 없습니다 ㅠ_ㅠ');
     }
     return count;
   }
@@ -270,12 +277,10 @@ $(() => {
       const y = c + dy[k];
       go(x, y, k, 0, path, m[r][c]);
     }
-    console.log(path_list);
     return path_list.length > 0;
   }
 
   function findRoute (r, c, a, b) {
-    console.log(r, c, a, b, m[r][c], m[a][b]);
     path_list = [];
     const tmp = [];
     tmp.push(r)
