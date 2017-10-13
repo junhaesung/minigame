@@ -1,33 +1,51 @@
-<!DOCTYPE html>
+﻿<!doctype html>
 <html>
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="description" content="The HTML5 gmae's main page" />
-    <link rel="stylesheet" type="text/css" href="/styles/main.css">
-    <title>풀무원 게임 천국</title>
-</head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>풀무원 게임천국</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+	<link rel="stylesheet" href="./styles/index.css">
+	<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+        <div class="mainStart">
+            <img src="./images/main/main.png" />
+            <div id="gameStart"><img src="./images/main/gameStart.png" onclick="gameStart();"/></div>
+        </div>
+	<header id="header"><img src="./images/main/selectGame.png" /></header>
+		<div class="main">
+			<div id="demo" class="demo">
+				<ul class="slide-wrap" id="example">
+					<li class="pos2">
+						<div class="inner">
+                            <a href="./tarot.html">
+                                <img src="./images/main/tarot.png" />
+                            </a>
+						</div>
+					</li>
+					<li class="pos3">
+						<div class="inner">
+                            <a href="./attendance.html">
+								<img src="./images/main/attendance.png"/>
+                                </a>
+						</div>
+					</li>
+					<li class="pos4">
+						<div class="inner">
+                            <a href="./suchuan.html">
+								<img src="./images/main/suchuan.png"/>
+                                </a>
+						</div>
+					</li>
+                    <i class="arrow prev" id="jprev">&lt;</i>
+                    <i class="arrow next" id="jnext">&gt;</i>
+                    <div id="logoImg"><img src="./images/main/logo.png" /></div>
+				</ul>
+			</div>
+		</div>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="./scripts/jquery.rollingslider.js"></script>
 
-<body>
-    <header id="header">
-        <div class="logo">
-            <a href="index.html"> <img src="images/logo.jpg" alt="Logo Text" ></a>
-        </div>
-        <nav class="topnav" id="myTopnav">
-            <ul>
-                <li><a href="./attendance.html">출석체크</a></li>
-                <li><a href="./suchuan.html">사천성</a></li>
-                <li><a href="./tarot.html">운세</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main id="main" role="main">
-        <div id="content">
-            <!-- write here -->
-        </div>
-    </main>
-    <footer id="footer"> </footer>
-    <script src="/scripts/main.js"></script>
 </body>
-
 </html>

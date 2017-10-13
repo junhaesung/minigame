@@ -1,33 +1,157 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="description" content="The HTML5 gmae's main page" />
-    <link rel="stylesheet" type="text/css" href="/styles/main.css">
-    <title>풀무원 게임 천국</title>
+<meta charset="UTF-8">
+<title>타로 운세</title>
 </head>
-
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="./styles/tarot.css" />
+<script src="./scripts/jquery-1.11.0.min.js"></script>
+<script src="./scripts/tarot.js"></script>
 <body>
-    <header id="header">
-        <div class="logo">
-            <a href="index.html"> <img src="images/tarot.jpg" alt="Logo Text" ></a>
-        </div>
-        <nav class="topnav" id="myTopnav">
-            <ul>
-                <li><a href="./attendance.html">출석체크</a></li>
-                <li><a href="./suchuan.html">사천성</a></li>
-                <li><a href="./tarot.html">운세</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main id="main" role="main">
-        <div id="content">
-            <!-- write here -->
-        </div>
-    </main>
-    <footer id="footer"> </footer>
-    <script src="/scripts/main.js"></script>
-</body>
+    <header id="header"><img src="./images/tarotImg/tarot_logo.png" /></header>
+    <div class="main">
+            <div id="tarot_info">
+                마음을 정돈하고<br> 카드를 선택해주세요!
+            </div>
+            <div class="tarot_card">
+                <img onclick="selectCard(1)" src="./images/tarotImg/card.png" />
+                <img onclick="selectCard(2)" src="./images/tarotImg/card.png" />
+                <img onclick="selectCard(3)" src="./images/tarotImg/card.png" />
+                <img onclick="selectCard(4)" src="./images/tarotImg/card.png" />
+                <img onclick="selectCard(5)" src="./images/tarotImg/card.png" />
+                <img onclick="selectCard(6)" src="./images/tarotImg/card.png" />
+            </div>
 
+            <div id="tarot_name">
+                <input type="text" id="name" name="name" placeholder="이름을 입력하세요" />
+            </div>
+            <div id="tarot_start">
+                <input type="button" value="운세 알아보기" onclick="goUnsae()" />
+            </div>
+
+            <i class="material-icons"><a href="./index.html" title="첫 화면으로">refresh</a></i>
+        </div>
+
+        <div class="main1">
+            <div class="tarot_result_card">
+                <img src="./images/tarotImg/card_front.png" />
+            </div>
+            <div id="productImg">
+                <span class="proTitle"></span><br>
+                <a id="proLink" href="#"><img id="proImg" src="#" /></a>
+            </div>
+            <div id="sea">
+                <div id="tarot_result"><span id="nameView"></span>님은 오늘</div>
+                <div class="result_custom">
+                    <div class="reult_lohasLiving">
+                        <p>
+                            보람찬 하루를 보내겠군요! 하루의 마무리를 <span class="proTitle"></span>와 함께한다면 더욱
+                            즐거운 하루가 될꺼예요!
+                        </p>
+                        <p>
+                            힐링이 필요하지 않나요? 하루의 마무리를 <span class="proTitle"></span>와 함께한다면 더욱
+                            활기찬 내일이 될꺼예요!
+                        </p>
+                        <p>
+                            보람찬 하루를 보내겠군요! 하루의 마무리를 <span class="proTitle"></span>와 함께한다면 더욱
+                            즐거운 하루가 될꺼예요!
+                        </p>
+                        <p>
+                            힐링이 필요하지 않나요? 하루의 마무리를 <span class="proTitle"></span>와 함께한다면 더욱
+                            활기찬 내일이 될꺼예요!
+                        </p>
+                        <p>
+                            보람찬 하루를 보내겠군요! 하루의 마무리를 <span class="proTitle"></span>와 함께한다면 더욱
+                            즐거운 하루가 될꺼예요!
+                        </p>
+                        <p>
+                            힐링이 필요하지 않나요? 하루의 마무리를 <span class="proTitle"></span>와 함께한다면 더욱
+                            활기찬 내일이 될꺼예요!
+                        </p>
+                    </div>
+                    <div class="reult_lohasSkinCare">
+                        <p>
+                            귀인을 만날 날이랍니다:) 귀인과 가까워지기 위해 <span class="proTitle"></span>를 선물하는
+                            것은 어떨까요? 관계가 더욱 좋아질 꺼예요!
+                        </p>
+                        <p>
+                            안전하고 아름다운 하루를 보낼꺼랍니다! 안전한 원료로 만든 <span class="proTitle"></span>와
+                            함께라면 더욱 빛이 날꺼예요~!
+                        </p>
+                        <p>
+                            운수대통! 바로 <span class="proTitle"></span>을 만났기 때문이죠! 놓치지 않을 꺼예요!
+                        </p>
+                        <p>
+                            주위를 소중히 여기는 날이 되겠군요. 그렇다면 요 아이! <span class="proTitle"></span>가
+                            필요할거예요
+                        </p>
+                        <p>
+                            빛난 하루가 될꺼예요. 더욱 광채나는 하루를 위해 <span class="proTitle"></span>를 추천할게요
+                        </p>
+                        <p>
+                            나만의 매력을 뽐내는 하루를 보낼 꺼예요! <span class="proTitle"></span>와 함께한다면 더욱
+                            멋진 하루가 되겠죠!
+                        </p>
+                    </div>
+                    <div class="reult_lohasKit">
+                        <p>
+                            더없는 행복을 누릴꺼예요. 나누는 행복을 위해 지인에게 음식을 만들어주는 건 어떨까요? <span class="proTitle"></span>와 함께 더욱 건강하고 맛있는 음식이 만들어지겠죠!
+                        </p>
+                        <p>
+                            잇 아이템을 발견하게 되었습니다! 로하스가 추천하는 <span class="proTitle"></span>! 어때요?
+                            사고 싶다면 이미지를 눌러주세요:)
+                        </p>
+                        <p>
+                            문득 나무와 하늘을 보며 자연을 생각하네요. <span class="proTitle"></span>와 함께한다면 더욱
+                            푸르며 건강한 자연을 만들 수 있답니다!
+                        </p>
+                        <p>
+                            아이들의 먹거리가 걱정되는군요 <span class="proTitle"></span>와 함께한다면 더욱 건강하고 안전한
+                            음식을 만들수 있답니다!
+                        </p>
+                        <p>
+                            가족과 애틋한 시간을 보내겠군요:) 음식이 빠질 수 없죠! <span class="proTitle"></span>와
+                            함께한다면 더욱 건강하고 맛있는 음식을 만들 수 있답니다!
+                        </p>
+                        <p>
+                            주위가 푸를수록 더욱 행복해지는 날입니다. 푸른 자연을 위해 자연친화적인 <span class="proTitle"></span>
+                            제품을 쓰는 건 어떨까요?
+                        </p>
+                    </div>
+                    <div class="reult_lohasHealth">
+                        <p>
+                            보람찬 하루를 보내겠군요! 하루의 마무리를 <span class="proTitle"></span>와 함께한다면 더욱
+                            건강한 하루가 될꺼예요!
+                        </p>
+                        <p>
+                            귀인을 만날 날입니다:) 그렇다면! <span class="proTitle"></span>을 선물로 들고 가는 건
+                            어떨까요? 관계가 더욱 좋아질 꺼예요!
+                        </p>
+                        <p>
+                            다른 사람을 챙길수록 밝은 하루가 될꺼예요. 생각나는 사람이 있다면 <span class="proTitle"></span>를
+                            들고 직접 만나러 가는 건 어떨까요?
+                        </p>
+                        <p>
+                            고민이 풀리는 날이예요! 둘둘 말린 고민은 접고 활기 차게 <span class="proTitle"></span>를
+                            먹으며 힘냅시다!
+                        </p>
+                        <p>
+                            행복함 그 자체입니다. 행복을 다른 이들에게도 나눠주세요! <span class="proTitle"></span>을
+                            갖고 말이죠!
+                        </p>
+                        <p>
+                            스트레스가 풀리는 날이네요! 활기찬 하루를 위해 <span class="proTitle"></span>를 추천할게요!
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div id="tarot_start">
+                <a href="./tarot.html"><input type="button" value="다른 운세 알아보기" /></a>
+            </div>
+            <i class="material-icons"><a href="./index.html" title="첫 화면으로">refresh</a></i>
+        </div>
+</body>
 </html>

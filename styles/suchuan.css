@@ -2,14 +2,62 @@ body {
     text-align: center;
     margin: auto;
     padding: 0;
+    background-color:#c4df9b;    
 }
 
 #header {
     width: 360px;
-    height: 110px;
+    height: 130px;
     margin: auto;
     text-align: center;
-    background-color: burlywood;
+    background-image: url("/images/header_background.png");
+    background-size: 360px, 130px;
+    background-repeat: no-repeat;
+}
+
+#level {
+    position: relative;
+    left: 30px;
+    top: 0px;
+    width: 82px;
+    height: 88px;
+    background-image: url("/images/level_background.png");
+    background-size: 82px, 88px;
+    background-repeat: no-repeat;
+    padding-top: 25px;
+    color: #F3E100;
+    font-size: 40px;
+}
+
+#timebar {
+    width: 300px;
+    height: 14px;
+    position: relative;
+    left: 30px;
+    top: -15px;
+    background-image: url("/images/timebar_background.png");
+    background-size: 300px, 14px;
+    background-repeat: no-repeat;
+}
+
+#clock {
+    width: 28px;
+    height: 28px;
+    position: relative;
+    left: 310px;
+    top: -37px;
+    background-image: url("/images/clock.png");
+    background-size: 28px, 28px;
+    background-repeat: no-repeat;
+}
+
+#timebar-inner {
+    width: 272px;
+    height: 10px;
+    position: relative;    
+    top: -55px;
+    left: 36px;
+    background-color: red;
 }
 
 #canvas {
@@ -18,7 +66,7 @@ body {
     height: 384px;
     margin: auto;
     text-align: center;
-    background-color: #282527;
+    background-color: #2D2A2C;
 }
 
 #main {
@@ -39,14 +87,26 @@ body {
 }
 
 #pause {
-    width: 16%;
+    width: 12%;
+    height: 40px;
+    background-color: #584C3D;
+    color: white;
 }
 
 #score {
-    width: 50%;
+    width: 54%;
+    height: 28px;
+    color: white;
+    padding-top: 12px;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    background-color: #584C3D;
 }
 
 #back {
-    width: 16%;
+    width: 12%;
+    height: 40px;
+    background-color: #584C3D;
+    color: white;
 }
 

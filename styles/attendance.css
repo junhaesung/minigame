@@ -1,0 +1,47 @@
+/*.content{
+  background-image: url('images/background.png');
+  background-size:1440px;
+  text-align: center;
+}*/
+
+body{
+    margin: auto;
+    padding: 0;
+    background-color: #c4df9b;
+}
+.attendanceBtn{
+    text-align: center;
+  }
+.attendanceBtn img{
+    width: 240px;
+    padding: 20px;
+  }
+  /*.loginBtn{
+    background-color:#123456;
+    border: 0;
+    color: white;
+  }
+  .loginBtn:hover{
+    border:0;
+    background-color:#d1c0a5;
+    color:#123456;
+  }*/
+#header{
+    width: 360px;
+    height: 110px;
+    margin: auto;
+    text-align: center;
+}
+#main {
+    width: 360px;
+    padding-top: 13px;
+    margin: auto;
+}
+a { text-decoration:none;	color: white;}
+.material-icons:hover {
+	-webkit-animation: refreshIcon 2s infinite linear; /* Safari 4.0 - 8.0 */
+    animation: refreshIcon 2s infinite linear;
+}
+@keyframes refreshIcon{0%{transform:rotate(0deg)}100%{transform:rotate(359deg)}}
+
+

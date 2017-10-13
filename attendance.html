@@ -1,33 +1,34 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8" />
-    <meta name="description" content="The HTML5 gmae's main page" />
-    <link rel="stylesheet" type="text/css" href="/styles/main.css">
+    <meta name="description" content="The HTML5 game's main page" />
+    <link rel="stylesheet" type="text/css" href="./styles/attendance.css">    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <title>풀무원 게임 천국</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <script src="./scripts/jquery-1.11.0.min.js"></script>
 </head>
-
 <body>
     <header id="header">
-        <div class="logo">
-            <a href="index.html"> <img src="images/attendance.png" alt="Logo Text" ></a>
+        <div class="attendanceBtn">
+            <!--<button class="loginBtn" onclick="login()">로그인</button>-->
+            <img src="images/attendance_btn.png" onclick="attendanceCheck()" id="attendance">
         </div>
-        <nav class="topnav" id="myTopnav">
-            <ul>
-                <li><a href="./attendance.html">출석체크</a></li>
-                <li><a href="./suchuan.html">사천성</a></li>
-                <li><a href="./tarot.html">운세</a></li>
-            </ul>
-        </nav>
     </header>
     <main id="main" role="main">
-        <div id="content">
-            <!-- write here -->
+        <div id="content" class="content">
+            <!--canvas-->
+            <canvas id="attendanceCanvas" width="360" height="550" style="background-image: url('images/attendance_background.png'); background-size: contain;background-repeat: no-repeat;">
+              현재 브라우저는 canvas를 제공하지 않습니다. 브라우저를 업그레이드 해주세요.
+            </canvas>
         </div>
+        <i class="material-icons" style="position: relative;top:-90px;color: white; font-size: 50px;float: right;margin-right: 5px;">
+            <a href="./index.html" title="첫 화면으로">refresh</a>
+        </i>
     </main>
     <footer id="footer"> </footer>
-    <script src="/scripts/main.js"></script>
+    <script src="./scripts/attendance.js"></script>
 </body>
-
 </html>

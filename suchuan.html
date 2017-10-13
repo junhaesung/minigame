@@ -3,25 +3,32 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="description" content="The HTML5 gmae's main page" />
+    <meta name="description" content="The HTML5 game's main page" />
     <meta name="viewport" content="width=device-width, user-scalable=no"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./scripts/jquery-1.11.0.min.js"></script>
     <script src="./scripts/lodash.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link rel="stylesheet" type="text/css" href="./styles/suchuan.css">    
     <title>풀무원 게임 천국</title>
 </head>
 
 <body id="body">
-    <header id="header"></header>
+    <header id="header">
+        <div id="header-edge"></div>
+        <div id="level"></div>
+        <div id="timebar"></div>
+        <div id="clock"></div>
+        <div id="timebar-inner"></div>
+    </header>
     <div id="main">
         <div id="content">
             <!-- write here -->
             <canvas id="canvas"></canvas>
         </div>
         <div id="scoreboard">
-            <button id="pause">pause</button>
-            <div id="score">score</div>
-            <button id="back">back</button>
+            <button id="pause"onclick="pause()">pause</button>
+            <div id="score">0</div>
+            <button id="back" onclick="confirmBack()">back</button>
         </div>
     </div>
     <footer id="footer"></footer>
